@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 
-load_dotenv(override=True)
+if os.path.exists("../.env"):
+    load_dotenv(override=True)
 
 jiyoon_base_url = "https://askjiyun.com/today"
 jiyoon_headers = {
@@ -58,16 +59,17 @@ def fetch_today(today):
 
 def send_slack(data):
     
-    response = requests.post(
-        slack_webhook,
-        headers=slack_headers,
-        data=json.dumps({
-            "text": data
-        })
-    )
+    print(slack_webhook)
+    # response = requests.post(
+    #     slack_webhook,
+    #     headers=slack_headers,
+    #     data=json.dumps({
+    #         "text": data
+    #     })
+    # )
     
-    if response.status_code != 200:
-        return f"ERROR: {response.status_code} {response.text}"
+    # if response.status_code != 200:
+    #     return f"ERROR: {response.status_code} {response.text}"
 
     return
 
