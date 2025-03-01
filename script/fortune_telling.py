@@ -3,11 +3,7 @@ import json
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
 
-
-if os.path.exists("../.env"):
-    load_dotenv(override=True)
 
 jiyoon_base_url = "https://askjiyun.com/today"
 jiyoon_headers = {
