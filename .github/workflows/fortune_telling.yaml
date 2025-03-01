@@ -28,4 +28,4 @@ jobs:
           echo 'Run fortune_telling.py'
           python ./script/fortune_telling.py
         env: 
-          SECRET_KEY: ${{ secrets.SLACK_LUCKY_DAILY }}
+          SLACK_LUCKY_DAILY: ${{ secrets.SLACK_LUCKY_DAILY }}
