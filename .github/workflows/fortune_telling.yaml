@@ -3,6 +3,7 @@ name: Daily Fortune Telling
 on:
   schedule:
     - cron: '10 9 * * *'
+  workflow_dispatch:
 
 jobs:
   run-script:
