@@ -59,17 +59,16 @@ def fetch_today(today):
 
 def send_slack(data):
     
-    print(slack_webhook)
-    # response = requests.post(
-    #     slack_webhook,
-    #     headers=slack_headers,
-    #     data=json.dumps({
-    #         "text": data
-    #     })
-    # )
+    response = requests.post(
+        slack_webhook,
+        headers=slack_headers,
+        data=json.dumps({
+            "text": data
+        })
+    )
     
-    # if response.status_code != 200:
-    #     return f"ERROR: {response.status_code} {response.text}"
+    if response.status_code != 200:
+        return f"ERROR: {response.status_code} {response.text}"
 
     return
 
