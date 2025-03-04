@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-jiyoon_base_url = "https://askjiyun.com/today"
+jiyoon_base_url = "https://askjiyun.com/?mid=today&page={}"
 jiyoon_headers = {
     "Accept": "text/html",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -23,18 +23,29 @@ def fetch_today(today):
     
     data = ""
     
-    # 오늘의 운세 URL 조회
-    response = requests.get(
-        jiyoon_base_url,
-        headers=jiyoon_headers
-    )
+    page = 1
+    while True:     
+        
+        # 오늘의 운세 URL 조회
+        response = requests.get(
+            jiyoon_base_url.format(page),
+            headers=jiyoon_headers
+        )
 
-    if response.status_code != 200:
-        return f"ERROR: {response.status_code} {response.text}"
+        if response.status_code != 200:
+            return f"ERROR: {response.status_code} {response.text}"
 
-    soup = BeautifulSoup(response.text, "html.parser")
-    
-    today_a_line = soup.find("a", string=lambda text: text and today in text)
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        today_a_line = soup.find("a", string=lambda text: text and today in text)
+        
+        if today_a_line is not None:
+            break
+        
+        if page == 5:   # 5페이지 이내에서만 오늘 날짜를 검색
+            break
+        page += 1
+        
     today_a_href = today_a_line.get("href")     # 오늘의 운세 게시글 링크
     
     # 오늘의 운세 조회
