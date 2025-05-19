@@ -19,6 +19,11 @@ slack_headers = {
     "Content-type": "application/json"
 }
 
+kw_webhook = os.getenv("KW_LUCKY_DAILY")
+kw_headers = {
+    "Content-type": "application/json"
+}
+
 def fetch_today(today):
     
     data = ""
@@ -83,9 +88,28 @@ def send_slack(data):
     return
 
 
+def send_kw(data):
+
+    response = requests.post(
+        kw_webhook,
+        headers=kw_headers,
+        data=json.dumps({
+            "text": data
+        })
+    )
+    
+    if response.status_code != 200:
+        return f"ERROR: {response.status_coƒde} {response.text}"
+
+    return
+
+
 if __name__ == "__main__":
 
     now = datetime.today()
     today = now.strftime("%-m월 %-d일")
 
-    send_slack(fetch_today(today))
+    fortune_data = fetch_today(today)
+
+    send_slack(fortune_data)
+    send_kw(fortune_data)
