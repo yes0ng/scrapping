@@ -29,3 +29,4 @@ jobs:
           python ./script/fortune_telling.py
         env: 
           SLACK_LUCKY_DAILY: ${{ secrets.SLACK_LUCKY_DAILY }}
+          KW_LUCKY_DAILY: ${{ secrets.KW_LUCKY_DAILY }}
