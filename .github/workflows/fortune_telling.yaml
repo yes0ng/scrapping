@@ -2,7 +2,7 @@ name: Daily Fortune Telling
 
 on:
   schedule:
-    - cron: '10 0 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,6 +10,9 @@ jobs:
     runs-on: macos-latest
   
     steps:
+      - name: Check Time
+        run: date
+
       - name: Checkout Code
         uses: actions/checkout@v2
 
