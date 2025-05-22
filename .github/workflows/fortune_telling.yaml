@@ -2,7 +2,7 @@ name: Daily Fortune Telling
 
 on:
   schedule:
-    - cron: '10 1 * * *'
+    - cron: '20 0 * * *'
   workflow_dispatch:
 
 jobs:
